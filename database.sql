@@ -1,8 +1,8 @@
-create database db_ipo;
+create database database_ipo;
 
-use db_ipo;
+use database_ipo;
 
-create table colab (
+create table colaborador (
     id_colab INT PRIMARY KEY auto_increment,
     nome_colab VARCHAR(30) NOT NULL,
     sobrenome_colab VARCHAR(30) NOT NULL, 
