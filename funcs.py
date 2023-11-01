@@ -5,7 +5,7 @@ def conn_db():
         host='localhost',
         user='root',
         password='1234',
-        database='db_ipo'
+        database='database_ipo'
         )
 
     try:
