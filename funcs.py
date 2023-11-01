@@ -1,4 +1,4 @@
-import mysql.connector
+import mysql.connector, json
 
 def conn_db():
     conn = mysql.connector.connect(
