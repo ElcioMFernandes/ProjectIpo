@@ -32,7 +32,6 @@ class Carro(Veiculo):
         self.cnh_requirida = 'B'
         self.capacidade_tanque = 50
 
-
 class Moto(Veiculo):
     def __init__(self):
         super().__init__()
