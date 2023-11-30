@@ -1,83 +1,8 @@
-import os
-
-class Colaborador:
-    def __init__(self):
-        self.nome = None
-        self.cpf = None
-        self.cnh = None
-        self.veiculo = None
-
-    def adicionar_colaborador(self):
-        while True:
-            self.nome = input("Digite o nome do colaborador: ")
-            if len(self.nome) >= 3 and self.nome.isalpha():
-                break
-            else:
-                print("O nome deve ter pelo menos 3 letras e conter apenas letras. Tente novamente.")
-        cpf = input("Digite o CPF do colaborador: ")
-        self.cpf = "{}.{}.{}-{}".format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
-        self.cnh = []
-        cnh_c = input("O colaborador possui CNH do tipo C? (s/n): ")
-        if cnh_c.lower() == 's':
-            self.cnh.append('C')
-            self.cnh.append('B')
-        else:
-            cnh_b = input("O colaborador possui CNH do tipo B? (s/n): ")
-            if cnh_b.lower() == 's':
-                self.cnh.append('B')
-        cnh_a = input("O colaborador possui CNH do tipo A? (s/n): ")
-        if cnh_a.lower() == 's':
-            self.cnh.append('A')
-
-        self.veiculo = 0
-        print('-'*30)
-    
-    def apresentar_colaborador(self):
-        print("DADOS DO COLABORADOR")
-        print("Nome:", self.nome)
-        print("CPF:", self.cpf)
-        print("CNH:", ', '.join(self.cnh))
-        print("Veículo:", self.veiculo)
-        print('-'*30)
-
-class Veiculo:
-    def __init__(self):
-        self.placa = None
-        self.modelo = None
-        self.marca = None
-        self.disponivel = None
-        cnh_requerida = None
-
-    def adicionar_veiculo(self):
-        placa = input("Digite a placa do veículo: ")
-        if "-" not in placa:
-            self.placa = "{}-{}".format(placa[:3], placa[3:]).upper()
-        else:
-            self.placa = placa.upper()
-        self.modelo = input("Digite o modelo do veículo: ").upper()
-        self.marca = input("Digite a marca do veículo: ").upper()
-        self.disponivel = True
-
-    def apresentar_veiculo(self):
-        print("DADOS DO VEÍCULO")
-        print("Placa :", self.placa)
-        print("Modelo :", self.modelo)
-        print("Marca :", self.marca)
-        print("Disponível :", "SIM" if self.disponivel else "NÃO")
-        print("CNH requerida :", self.cnh_requerida)
-        print('-'*30)
-
-class Carro(Veiculo):
-    def __init__(self):
-        self.cnh_requerida = 'B'
-
-class Moto(Veiculo):
-    def __init__(self):
-        self.cnh_requerida = 'A'
-
-class Caminhao(Veiculo):
-    def __init__(self):
-        self.cnh_requerida = 'C'
+import os, sys
+from colaborador import Colaborador
+from caminhao import Caminhao
+from moto import Moto
+from carro import Carro
 
 def menu(nome_menu, *opcoes):
     os.system('cls' if os.name == 'nt' else 'clear')
