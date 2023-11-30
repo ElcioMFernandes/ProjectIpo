@@ -58,7 +58,7 @@ class Colaborador:
     def apresentar_todos_os_colaboradores(self):
         with open('DATABASE/colaboradores.csv', 'r') as file:
             reader = csv.reader(file)
-            print(f"LISTA DE COLABORADORES\n{'-'*30}\n")
+            print('-'*30)
             for linha in reader:
                 if linha == ['nome', 'cpf', 'cnh', 'veiculo'] or linha == []:
                     continue

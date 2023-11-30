@@ -33,19 +33,17 @@ class Veiculo:
     def apresentar_todos_os_veiculos(self):
         with open('DATABASE/veiculos.csv', 'r') as file:
             reader = csv.reader(file)
+            print('-'*30)
             rows = list(reader)
             for row in rows[1:-1]:
-                if row:  # Check if row is not empty
-                    if len(row) >= 5:  # Check if row has at least 5 columns
-                        print('-'*30)
-                        print("DADOS DO VEÍCULO")
-                        print('-'*30)
+                if row:
+                    if len(row) >= 5:
                         print("Placa :", row[0])
                         print("Modelo :", row[1])
                         print("Marca :", row[2])
                         print("Disponível :", "SIM" if row[3] == "True" else "NÃO")
                         print("CNH requerida :", row[4])
-            print('-'*30)
+                        print('-'*30)
         file.close()
 
     def alocar_veiculo(self):
