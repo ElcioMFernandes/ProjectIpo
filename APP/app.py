@@ -96,7 +96,8 @@ def menu_veiculo():
         input("Pressione ENTER para continuar...")
         menu_veiculo()
     elif op == 3:
-        print("Devolver")
+        veiculo = Veiculo()
+        veiculo.devolver_veiculo()
         input("Pressione ENTER para continuar...")
         menu_veiculo()
     elif op == 4:

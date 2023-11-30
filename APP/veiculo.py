@@ -75,3 +75,38 @@ class Veiculo:
                             writer.writerows(rows)
                         print("Veículo alocado com sucesso!")
                         break
+
+    def devolver_veiculo(self):
+        placa = input("Digite a placa do veículo: ").upper()
+        placa = "{}-{}".format(placa[:3], placa[3:])
+        
+        with open('DATABASE/veiculos.csv', 'r') as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+
+        for row in rows[1:]:
+            if row and row[0] == placa and row[3] == "False":
+                cpf = input("Digite o CPF do colaborador: ").upper()
+                cpf = "{}.{}.{}-{}".format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
+                
+                with open('DATABASE/colaboradores.csv', 'r') as cfile:
+                    reader = csv.reader(cfile)
+                    crows = list(reader)
+
+                for crow in crows[1:]:
+                    if crow and crow[1] == cpf and crow[3] == placa:
+                        crow[3] = "0"
+                        with open('DATABASE/colaboradores.csv', 'w', newline='') as cfile:
+                            writer = csv.writer(cfile)
+                            writer.writerows([crows[0]] + crows[1:])
+                        row[3] = "True"
+                        with open('DATABASE/veiculos.csv', 'w', newline='') as file:
+                            writer = csv.writer(file)
+                            writer.writerows(rows)
+                        print("Veículo devolvido com sucesso!")
+                        break
+                else:
+                    print("Colaborador não encontrado ou não é responsável por este veículo.")
+                break
+        else:
+            print("Veículo não encontrado ou já está disponível.")
