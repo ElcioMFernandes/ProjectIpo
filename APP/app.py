@@ -85,10 +85,6 @@ def menu_veiculo():
             input("Pressione ENTER para continuar...")
             menu_veiculo()
         elif op == 4:
-            veiculo = Veiculo()
-            veiculo.apresentar_todos_os_veiculos()
-            input("Pressione ENTER para continuar...")
-        elif op == 5:
             menu_veiculo()  
         else:
             print("Opção inválida!")
@@ -97,10 +93,18 @@ def menu_veiculo():
     elif op == 2:
         veiculo = Veiculo()
         veiculo.alocar_veiculo()
-
+        input("Pressione ENTER para continuar...")
+        menu_veiculo()
     elif op == 3:
         print("Devolver")
+        input("Pressione ENTER para continuar...")
+        menu_veiculo()
     elif op == 4:
+        veiculo = Veiculo()
+        veiculo.apresentar_todos_os_veiculos()
+        input("Pressione ENTER para continuar...")
+        menu_veiculo()
+    elif op == 5:
         menu_principal()
     else:
         print("Opção inválida!")
