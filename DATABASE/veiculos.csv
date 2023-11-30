@@ -1,2 +1,7 @@
 placa,modelo,marca,disponivel,cnh_requerida
-ABC-1234,UNO,FIAT,True,B
+ABC-1234,UNO,FIAT,False,B
+
+BCA-4321,FAZER,YAMAHA,False,A
+
+XYZ-9876,TESTE,TESTE,True,C
+

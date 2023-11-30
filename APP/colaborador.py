@@ -39,8 +39,8 @@ class Colaborador:
         if cnh_a.lower() == 's':
             self.cnh.append('A')
         if len(self.cnh) == 0:
-            print("O colaborador deve possuir pelo menos uma CNH. Tente novamente.")
-            self.adicionar_colaborador()
+            print("O colaborador deve possuir pelo menos uma CNH.")
+            return
         self.veiculo = 0
         print('-'*30)
         with open('DATABASE/colaboradores.csv', 'a') as file:
@@ -58,7 +58,7 @@ class Colaborador:
     def apresentar_todos_os_colaboradores(self):
         with open('DATABASE/colaboradores.csv', 'r') as file:
             reader = csv.reader(file)
-            print("LISTA DE COLABORADORES")
+            print(f"LISTA DE COLABORADORES\n{'-'*30}\n")
             for linha in reader:
                 if linha == ['nome', 'cpf', 'cnh', 'veiculo'] or linha == []:
                     continue

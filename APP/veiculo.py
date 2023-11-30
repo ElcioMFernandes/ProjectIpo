@@ -19,6 +19,7 @@ class Veiculo:
         with open('DATABASE/veiculos.csv', 'a') as file:
             writer = csv.writer(file)
             writer.writerow([self.placa, self.modelo, self.marca, self.disponivel, self.cnh_requerida])
+        file.close()
 
     def apresentar_veiculo(self):
         print("DADOS DO VEÍCULO")
@@ -32,66 +33,31 @@ class Veiculo:
     def apresentar_todos_os_veiculos(self):
         with open('DATABASE/veiculos.csv', 'r') as file:
             reader = csv.reader(file)
-            for linha in reader:
-                if linha == ['placa', 'modelo', 'marca', 'disponivel', 'cnh_requerida'] or linha == []:
-                    continue
-                self.placa = linha[0]
-                self.modelo = linha[1]
-                self.marca = linha[2]
-                self.disponivel = linha[3]
-                self.cnh_requerida = linha[4]
-                self.apresentar_veiculo()
+            rows = list(reader)
+            for row in rows[1:-1]:
+                if row:  # Check if row is not empty
+                    if len(row) >= 5:  # Check if row has at least 5 columns
+                        print('-'*30)
+                        print("DADOS DO VEÍCULO")
+                        print('-'*30)
+                        print("Placa :", row[0])
+                        print("Modelo :", row[1])
+                        print("Marca :", row[2])
+                        print("Disponível :", "SIM" if row[3] == "True" else "NÃO")
+                        print("CNH requerida :", row[4])
+            print('-'*30)
+        file.close()
 
     def alocar_veiculo(self):
-        cpf = input("Digite o CPF do colaborador: ")
-        while len(cpf) != 11 or not cpf.isnumeric():
-            print("O CPF deve ter 11 dígitos e conter apenas números. Tente novamente.")
-            cpf = input("Digite o CPF do colaborador: ")
-        cpf = "{}.{}.{}-{}".format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
-        with open('DATABASE/colaboradores.csv', 'r') as file:
-            reader = csv.reader(file)
-            for linha in reader:
-                if linha == ['nome', 'cpf', 'cnh', 'veiculo'] or linha == []:
-                    continue
-                if linha[1] == cpf:
-                    if linha[3] != '0':
-                        print("O colaborador já possui um veículo alocado.")
-                        return
-                    else:
-                        cnh = linha[2]
-                        break
-            else:
-                print("O colaborador não foi encontrado.")
-                return
-        placa = input("Digite a placa do veículo: ")
-        if "-" not in placa:
-            placa = "{}-{}".format(placa[:3], placa[3:]).upper()
-        else:
-            placa = placa.upper()
+        placa = input("Digite a placa do veículo: ").upper()
+        placa = "{}-{}".format(placa[:3], placa[3:])
         with open('DATABASE/veiculos.csv', 'r') as file:
             reader = csv.reader(file)
-            for linha in reader:
-                if linha == ['placa', 'modelo', 'marca', 'disponivel', 'cnh_requerida'] or linha == []:
-                    continue
-                if linha[0] == placa:
-                    if linha[3] == '0':
-                        print("O veículo não está disponível.")
-                        return
-                    else:
-                        cnh_requerida = linha[4]
-                        break
-            else:
-                print("O veículo não foi encontrado.")
-                return
-            if cnh_requerida not in cnh:
-                print("O colaborador não possui a CNH requerida para este veículo.")
-                return
-            with open('DATABASE/colaboradores.csv', 'r') as file:
-                reader = csv.reader(file)
-                for linha in reader:
-                    if linha == ['nome', 'cpf', 'cnh', 'veiculo'] or linha == []:
-                        continue
-                    if linha[1] == cpf:
-                        linha[3] = placa
-                        break
-                    
+            rows = list(reader)
+        for row in rows[1:-1]:
+            if row and row[0] == placa and row[3] == "True":
+                row[3] = "False"
+        with open('DATABASE/veiculos.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(rows)
+            
