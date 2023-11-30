@@ -1,3 +1,4 @@
+import csv
 class Colaborador:
     def __init__(self):
         self.nome = None
@@ -18,6 +19,14 @@ class Colaborador:
             cpf = input("Digite o CPF do colaborador: ")
         self.cpf = "{}.{}.{}-{}".format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
         self.cnh = []
+        with open('database/colaboradores.csv', 'r') as file:
+            reader = csv.reader(file)
+            for linha in reader:
+                if linha == ['nome', 'cpf', 'cnh', 'veiculo'] or linha == []:
+                    continue
+                if linha[1] == self.cpf:
+                    print("O CPF digitado já está cadastrado. Tente novamente.")
+                    self.adicionar_colaborador()
         cnh_c = input("O colaborador possui CNH do tipo C? (s/n): ")
         if cnh_c.lower() == 's':
             self.cnh.append('C')
@@ -34,7 +43,10 @@ class Colaborador:
             self.adicionar_colaborador()
         self.veiculo = 0
         print('-'*30)
-    
+        with open('DATABASE/colaboradores.csv', 'a') as file:
+            writer = csv.writer(file)
+            writer.writerow([self.nome, self.cpf, self.cnh, self.veiculo])
+
     def apresentar_colaborador(self):
         print("DADOS DO COLABORADOR")
         print("Nome:", self.nome)
@@ -42,3 +54,17 @@ class Colaborador:
         print("CNH:", ', '.join(self.cnh))
         print("Veículo:", self.veiculo)
         print('-'*30)
+
+    def apresentar_todos_os_colaboradores(self):
+        with open('DATABASE/colaboradores.csv', 'r') as file:
+            reader = csv.reader(file)
+            print("LISTA DE COLABORADORES")
+            for linha in reader:
+                if linha == ['nome', 'cpf', 'cnh', 'veiculo'] or linha == []:
+                    continue
+                print("Nome:", linha[0])
+                print("CPF:", linha[1])
+                print("CNH:", linha[2])
+                print("Veículo:", linha[3])
+                print('-'*30)
+                
